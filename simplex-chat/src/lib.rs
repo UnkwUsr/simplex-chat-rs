@@ -242,6 +242,16 @@ impl ChatClient {
 
         Ok(group.members)
     }
+
+    pub async fn api_auto_accept(&mut self, on: bool) -> Result<()> {
+        let onoff = if on { "on" } else { "off" };
+        let cmd = format!("/auto_accept {}", onoff);
+        let _resp = self.send_command(&cmd).await?;
+
+        // TODO: Make sure this was OK
+
+        Ok(())
+    }
 }
 
 impl Drop for ChatClient {

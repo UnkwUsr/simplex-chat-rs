@@ -252,6 +252,10 @@ impl ChatClient {
 
         Ok(())
     }
+
+    pub async fn api_send_text_message() {
+        todo!("implement")
+    }
 }
 
 impl Drop for ChatClient {

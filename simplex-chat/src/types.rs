@@ -296,3 +296,28 @@ pub struct UserContactRequest {
     pub profile: Profile,
     pub created_at: DateTime<Utc>,
 }
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+#[serde(rename_all = "camelCase")]
+pub struct ComposedMessage {
+    pub file_path: Option<String>,
+    pub quoted_item_id: u64,
+    pub msg_content: MsgContent,
+}
+
+pub enum ChatType {
+    Direct,
+    Group,
+    ContactRequest,
+}
+
+impl ToString for ChatType {
+    fn to_string(&self) -> String {
+        match self {
+            Self::Direct => "@",
+            Self::Group => "#",
+            Self::ContactRequest => "<@",
+        }
+        .to_owned()
+    }
+}

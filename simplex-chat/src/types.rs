@@ -301,7 +301,7 @@ pub struct UserContactRequest {
 #[serde(rename_all = "camelCase")]
 pub struct ComposedMessage {
     pub file_path: Option<String>,
-    pub quoted_item_id: u64,
+    pub quoted_item_id: Option<u64>,
     pub msg_content: MsgContent,
 }
 

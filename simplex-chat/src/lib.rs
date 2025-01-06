@@ -253,8 +253,44 @@ impl ChatClient {
         Ok(())
     }
 
-    pub async fn api_send_text_message() {
-        todo!("implement")
+    pub async fn api_send_messages(
+        &mut self,
+        chat_type: ChatType,
+        chat_id: u64,
+        messages: Vec<ComposedMessage>,
+    ) -> Result<Vec<AChatItem>> {
+        let messages_json = serde_json::to_string(&messages)?;
+        let cmd = format!(
+            "/_send {}{} {}",
+            chat_type.to_string(),
+            chat_id,
+            messages_json
+        );
+        let resp = self.send_command(&cmd).await?;
+        let ChatResponse::NewChatItems { chat_items, .. } = resp else {
+            bail!("The command response does not match the expected type");
+        };
+
+        Ok(chat_items)
+    }
+
+    pub async fn api_send_text_message(
+        &mut self,
+        chat_type: ChatType,
+        chat_id: u64,
+        message: &str,
+    ) -> Result<Vec<AChatItem>> {
+        let composed_message = ComposedMessage {
+            file_path: None,
+            quoted_item_id: None,
+            msg_content: MsgContent::Text {
+                text: message.to_owned(),
+                _unknown_fields: HashMap::new(),
+            },
+        };
+
+        self.api_send_messages(chat_type, chat_id, vec![composed_message])
+            .await
     }
 }
 

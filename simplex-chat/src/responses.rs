@@ -87,5 +87,7 @@ pub enum ChatResponse {
         _unknown_fields: HashMap<String, JsonValue>,
     },
     #[serde(untagged)]
+    ContactRequest { contact_request: UserContactRequest },
+    #[serde(untagged)]
     Unknown(JsonValue),
 }

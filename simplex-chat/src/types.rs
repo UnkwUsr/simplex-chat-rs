@@ -68,6 +68,7 @@ pub enum ChatInfo {
         _unknown_fields: HashMap<String, JsonValue>,
     },
     ContactRequest {
+        contact_request: UserContactRequest,
         #[serde(flatten)]
         _unknown_fields: HashMap<String, JsonValue>,
     },
@@ -184,7 +185,7 @@ pub enum Direction {
 #[serde(rename_all = "camelCase")]
 pub struct Meta {
     pub item_id: u64,
-    pub item_ts: DateTime<Utc>, // TODO: Pick date
+    pub item_ts: DateTime<Utc>,
     pub item_text: String,
     // item_status: CIStatus,
     // created_at: Date,
@@ -285,4 +286,13 @@ pub struct Connection {
     pub conn_id: u64,
     #[serde(flatten)]
     pub _unknown_fields: HashMap<String, JsonValue>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+#[serde(rename_all = "camelCase")]
+pub struct UserContactRequest {
+    pub contact_request_id: u64,
+    pub local_display_name: String,
+    pub profile: Profile,
+    pub created_at: DateTime<Utc>,
 }

@@ -10,55 +10,68 @@ pub enum ChatResponse {
     ActiveUser {
         user: User,
         #[serde(flatten)]
+        #[serde(skip_serializing_if = "HashMap::is_empty")]
         _unknown_fields: HashMap<String, JsonValue>,
     },
     ChatError {
+        #[serde(skip_serializing_if = "Option::is_none")]
         user_: Option<User>,
         chat_error: ChatError,
         #[serde(flatten)]
+        #[serde(skip_serializing_if = "HashMap::is_empty")]
         _unknown_fields: HashMap<String, JsonValue>,
     },
     ChatCmdError {
+        #[serde(skip_serializing_if = "Option::is_none")]
         user_: Option<User>,
         chat_error: ChatError,
         #[serde(flatten)]
+        #[serde(skip_serializing_if = "HashMap::is_empty")]
         _unknown_fields: HashMap<String, JsonValue>,
     },
     ChatRunning {
         #[serde(flatten)]
+        #[serde(skip_serializing_if = "HashMap::is_empty")]
         _unknown_fields: HashMap<String, JsonValue>,
     },
     ChatStarted {
         #[serde(flatten)]
+        #[serde(skip_serializing_if = "HashMap::is_empty")]
         _unknown_fields: HashMap<String, JsonValue>,
     },
     ChatStopped {
         #[serde(flatten)]
+        #[serde(skip_serializing_if = "HashMap::is_empty")]
         _unknown_fields: HashMap<String, JsonValue>,
     },
     Chats {
         // user: User,
         chats: Vec<Chat>,
         #[serde(flatten)]
+        #[serde(skip_serializing_if = "HashMap::is_empty")]
         _unknown_fields: HashMap<String, JsonValue>,
     },
     ContactConnected {
         contact: Contact,
         user: User,
+        #[serde(skip_serializing_if = "Option::is_none")]
         user_custom_profile: Option<Profile>,
         #[serde(flatten)]
+        #[serde(skip_serializing_if = "HashMap::is_empty")]
         _unknown_fields: HashMap<String, JsonValue>,
     },
     GroupMembers {
         user: User,
         group: Group,
         #[serde(flatten)]
+        #[serde(skip_serializing_if = "HashMap::is_empty")]
         _unknown_fields: HashMap<String, JsonValue>,
     },
     NewChatItems {
         user: User,
         chat_items: Vec<AChatItem>,
         #[serde(flatten)]
+        #[serde(skip_serializing_if = "HashMap::is_empty")]
         _unknown_fields: HashMap<String, JsonValue>,
     },
     ReceivedGroupInvitation {
@@ -67,23 +80,27 @@ pub enum ChatResponse {
         contact: Contact,
         member_role: GroupMemberRole,
         #[serde(flatten)]
+        #[serde(skip_serializing_if = "HashMap::is_empty")]
         _unknown_fields: HashMap<String, JsonValue>,
     },
     UserContactLink {
         user: User,
         contact_link: UserContactLink,
         #[serde(flatten)]
+        #[serde(skip_serializing_if = "HashMap::is_empty")]
         _unknown_fields: HashMap<String, JsonValue>,
     },
     UserContactLinkCreated {
         user: User,
         conn_req_contact: String,
         #[serde(flatten)]
+        #[serde(skip_serializing_if = "HashMap::is_empty")]
         _unknown_fields: HashMap<String, JsonValue>,
     },
     UsersList {
         users: Vec<UserInfo>,
         #[serde(flatten)]
+        #[serde(skip_serializing_if = "HashMap::is_empty")]
         _unknown_fields: HashMap<String, JsonValue>,
     },
     #[serde(untagged)]

@@ -266,6 +266,7 @@ impl ChatClient {
             chat_id,
             messages_json
         );
+        log::trace!("API send messages: {}", cmd);
         let resp = self.send_command(&cmd).await?;
         let ChatResponse::NewChatItems { chat_items, .. } = resp else {
             bail!("The command response does not match the expected type");

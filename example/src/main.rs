@@ -1,5 +1,5 @@
 use anyhow::Result;
-use simplex_chat::{ChatClient, ChatInfo, ChatResponse};
+use simplex_chat::{ChatClient, ChatInfo, ChatResponse, ChatType};
 
 async fn process_messages(mut chat: ChatClient) -> Result<()> {
     loop {
@@ -49,6 +49,9 @@ async fn main() -> Result<()> {
 
     let members = chat.api_list_members(1).await?;
     println!("Members of group ID '1': {:?}", members);
+
+    chat.api_send_text_message(ChatType::Direct, 1, "Hello! This message was automated")
+        .await?;
 
     process_messages(chat).await?;
 

@@ -208,11 +208,11 @@ impl ChatClient {
         Ok(chats)
     }
 
-    pub async fn api_get_user_address(&mut self) -> Result<Option<String>> {
+    pub async fn api_get_user_address(&mut self) -> Result<Option<ConnLinkContact>> {
         let resp = self.send_command("/show_address").await?;
         match resp {
-            ChatResponse::UserContactLink { contact_link, .. } => {
-                Ok(Some(contact_link.conn_req_contact))
+            ChatResponse::ContactLink { contact_link, .. } => {
+                Ok(Some(contact_link.conn_link_contact))
             }
             ChatResponse::ChatCmdError { .. } => Ok(None),
             _ => {

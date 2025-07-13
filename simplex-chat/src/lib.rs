@@ -261,7 +261,7 @@ impl ChatClient {
     ) -> Result<Vec<AChatItem>> {
         let messages_json = serde_json::to_string(&messages)?;
         let cmd = format!(
-            "/_send {}{} {}",
+            "/_send {}{} live=off ttl=default json {}",
             chat_type.to_string(),
             chat_id,
             messages_json
@@ -288,6 +288,7 @@ impl ChatClient {
                 text: message.to_owned(),
                 _unknown_fields: HashMap::new(),
             },
+            mentions: Mentions {},
         };
 
         self.api_send_messages(chat_type, chat_id, vec![composed_message])

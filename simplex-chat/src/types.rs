@@ -352,7 +352,12 @@ pub struct ComposedMessage {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub quoted_item_id: Option<u64>,
     pub msg_content: MsgContent,
+    pub mentions: Mentions,
 }
+
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct Mentions {}
 
 #[derive(Serialize, Deserialize, Debug, Clone, Copy, Hash, PartialEq, Eq)]
 pub enum ChatType {

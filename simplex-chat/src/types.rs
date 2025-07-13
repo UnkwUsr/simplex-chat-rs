@@ -343,6 +343,7 @@ pub struct ComposedMessage {
     pub msg_content: MsgContent,
 }
 
+#[derive(Serialize, Deserialize, Debug, Clone, Copy, Hash, PartialEq, Eq)]
 pub enum ChatType {
     Direct,
     Group,

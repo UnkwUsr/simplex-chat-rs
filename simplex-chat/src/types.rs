@@ -51,13 +51,22 @@ pub struct Contact {
     pub contact_id: u64,
     pub local_display_name: String,
     // profile: Profile,
-    // active_conn: Connection,
+    pub active_conn: Option<Connection>,
+    pub contact_status: ContactStatus,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub via_group: Option<u64>,
     // created_at: Date,
     #[serde(flatten)]
     #[serde(skip_serializing_if = "HashMap::is_empty")]
     pub _unknown_fields: HashMap<String, JsonValue>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
+#[serde(rename_all = "camelCase", rename_all_fields = "camelCase")]
+pub enum ContactStatus {
+    Active,
+    Deleted,
+    DeletedByUser,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]

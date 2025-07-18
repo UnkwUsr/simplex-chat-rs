@@ -221,16 +221,16 @@ impl ChatClient {
         }
     }
 
-    pub async fn api_create_user_address(&mut self) -> Result<String> {
-        let resp = self.send_command("/address").await?;
+    pub async fn api_create_user_address(&mut self, user_id: u64) -> Result<ConnLinkContact> {
+        let resp = self.send_command(&format!("/_address {user_id}")).await?;
         let ChatResponse::UserContactLinkCreated {
-            conn_req_contact, ..
+            conn_link_contact, ..
         } = resp
         else {
             bail!("The command response does not match the expected type");
         };
 
-        Ok(conn_req_contact)
+        Ok(conn_link_contact)
     }
 
     pub async fn api_list_members(&mut self, group_id: u64) -> Result<Vec<GroupMember>> {

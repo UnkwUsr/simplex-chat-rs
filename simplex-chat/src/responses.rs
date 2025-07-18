@@ -85,7 +85,7 @@ pub enum ChatResponse {
     },
     UserContactLinkCreated {
         user: User,
-        conn_req_contact: String,
+        conn_link_contact: ConnLinkContact,
         #[serde(flatten)]
         #[serde(skip_serializing_if = "HashMap::is_empty")]
         _unknown_fields: HashMap<String, JsonValue>,
